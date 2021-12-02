@@ -62,14 +62,14 @@ To recover your session:
 Simply download the wanted solution folders.
 Script can be run from a parent directory:
 ```shell
-python 2018/2/code.py
+python 2018/2/solution.py
 ```
 Or set current directory to wanted solution folder:
 ```shell
 cd 2018/2
-python code.py
+python solution.py
 ```
-Please do not rename the *code.py* nor the *input.txt* files, as both their names are hardcoded in the solutions.
+Please do not rename the *solution.py* nor the *input.txt* files, as both their names are hardcoded in the solutions.
 
 
 ## Contributing

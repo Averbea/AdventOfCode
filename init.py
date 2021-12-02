@@ -5,6 +5,8 @@
 # Date = 06/12/2018
 
 # USER SPECIFIC PARAMETERS
+import sys
+
 base_pos = "./"            # Folders will be created here. If you want to make a parent folder, change this to ex "./adventofcode/"
 USER_SESSION_ID = "53616c7465645f5f3a8815e6af48b55855bcf45060e4a39d04f9d0562b54ca3112c1b31188fb9229ad9944b12610bc13"       # Get your session by inspecting the session cookie content in your web browser while connected to adventofcode and paste it here as plain text in between the ". Leave at is to not download inputs.
 DOWNLOAD_STATEMENTS = True # Set to false to not download statements. Note that only part one is downloaded (since you need to complete it to access part two)
@@ -47,9 +49,9 @@ for y in years:
         if not os.path.exists(year_pos+"/"+str(d)):
             os.mkdir(year_pos+"/"+str(d))
         day_pos = year_pos+"/"+str(d)
-        if MAKE_CODE_TEMPLATE and not os.path.exists(day_pos+"/code.py"):
-            code = open(day_pos+"/code.py", "w+")
-            code.write("# Advent of code Year "+str(y)+" Day "+str(d)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nwith open((__file__.rstrip(\"code.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))")
+        if MAKE_CODE_TEMPLATE and not os.path.exists(day_pos+"/solution.py"):
+            code = open(day_pos+"/solution.py", "w+")
+            code.write("# Advent of code Year "+str(y)+" Day "+str(d)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nwith open((__file__.rstrip(\"solution.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))")
             code.close()
         if DOWNLOAD_INPUTS and (not os.path.exists(day_pos+"/input.txt") or OVERWRITE)and USER_SESSION_ID != "":
             done = False
