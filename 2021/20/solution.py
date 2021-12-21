@@ -10,10 +10,10 @@ start = time()
 
 
 def draw(pixels):
-    minX = min([p[0] for p in pixels]) - 1
-    maxX = max([p[0] for p in pixels]) + 2
-    minY = min([p[1] for p in pixels]) - 1
-    maxY = max([p[1] for p in pixels]) + 2
+    minX = min([p[0] for p in pixels]) - 10
+    maxX = max([p[0] for p in pixels]) + 11
+    minY = min([p[1] for p in pixels]) - 10
+    maxY = max([p[1] for p in pixels]) + 11
     data = np.zeros([maxX - minX, maxY - minY, 3], dtype=np.uint8)
 
     for p in pixels:
@@ -27,26 +27,39 @@ def draw(pixels):
     plt.show()
 
 
-def step(pixel_data):
-    minX = min([p[0] for p in pixel_data])
-    maxX = max([p[0] for p in pixel_data])
-    minY = min([p[1] for p in pixel_data])
-    maxY = max([p[1] for p in pixel_data])
+def step(pixel_data, infinite_bit):
+
+    minY = min(p[1] for p in pixels)
+    maxY = max(p[1] for p in pixels)
+    minX = min(p[0] for p in pixels)
+    maxX = max(p[0] for p in pixels)
 
     enhanced = set()
 
     for y in range(minY - 1, maxY + 2):
         for x in range(minX - 1, maxX + 2):
+            index = 0
             binString = ""
             for curY in range(y - 1, y + 2):
                 for curX in range(x - 1, x + 2):
-                    if (curX, curY) in pixel_data:
-                        binString += '1'
+                    '''if (curX, curY) in pixel_data:
+                        if (minY <= curY <= maxY and minX <= curX <= maxX):
+                            binString += '1'
+                        else :
+                            binString+= str(infinite_bit)
+
                     else:
                         binString += '0'
-
-            if alg[int(binString, 2)] == 1:
+                        '''
+                    index = index << 1
+                    index = index | (
+                        int((curX, curY) in pixels)
+                        if (minY <= curY <= maxY and minX <= curX <= maxX) ## ???
+                        else infinite_bit
+                    )
+            if alg[index] == 1:
                 enhanced.add((x, y))
+
     return enhanced
 
 
@@ -64,8 +77,11 @@ pixels = set(
 )
 
 draw(pixels)
+
+
 for i in range(50):
-    pixels = step(pixels)
+    infbit =  i & 1 & alg[0]
+    pixels = step(pixels, infbit )
 
 draw(pixels)
 print(len(pixels))
