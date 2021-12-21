@@ -60,7 +60,47 @@ winner, loser = takeTurn(player1, player2)
 
 print("Part One : " + str(loser.score * numberOfTimesRolled))
 
+rollCombinations = []
+for i in range(1, 4):
+    for j in range(1, 4):
+        for k in range(1, 4):
+            rollCombinations.append([i, j, k])
 
-print("Part Two : " + str(None))
+
+
+p1Wins = 0
+p2Wins = 0
+Roll_Sums = {3:1,4:3,5:6,6:7,7:6,8:3,9:1}
+
+def game(rollSum,multiplier,  turn,pos1, pos2, score1, score2):
+    global p1Wins, p2Wins, Roll_Sums
+    if (score1 >= 21) or (score2 >= 21):
+        return
+    if turn == "p1":
+        pos1 = (pos1 + rollSum) % 10
+
+        score1 += pos1 +1
+        if score1 >= 21:
+            p1Wins +=  multiplier
+        else:
+            for total, freq in Roll_Sums.items():
+                game(total,freq* multiplier, "p2", pos1, pos2, score1, score2 )
+    elif turn == "p2":
+        pos2 = (pos2 + rollSum) %10
+        score2 += pos2 +1
+        if score2 >= 21:
+            p2Wins += 1 * multiplier
+        else:
+            for total, freq in Roll_Sums.items():
+                game(total, freq * multiplier, "p1", pos1, pos2, score1, score2)
+
+for total, freq in Roll_Sums.items():
+    print(total)
+    game(total, freq, "p1", int(input[0][-1]) -1 ,int(input[1][-1]) -1,0,0)
+print("Part Two : ")
+print("P1: " + str(p1Wins))
+print("P2: " + str(p2Wins))
+
+
 
 print("time elapsed: " + str(time() - start))
