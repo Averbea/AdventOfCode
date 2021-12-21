@@ -20,10 +20,10 @@ OVERWRITE = False          # If you really need to download the whole thing agai
 date = "December 2021"              # Date automatically put in the code templates.
 starting_advent_of_code_year = 2021 # You can go as early as 2015.
 last_advent_of_code_year = 2021     # The setup will download all advent of code data up until that date included
-last_advent_of_code_day = 7         # If the year isn't finished, the setup will download days up until that day included for the last year
+last_advent_of_code_day = 24         # If the year isn't finished, the setup will download days up until that day included for the last year
 # Imports
 import os
-import datetime
+
 try:
     import requests
 except ImportError:
@@ -45,13 +45,13 @@ for y in years:
         os.mkdir(base_pos+str(y))
     year_pos = base_pos + str(y)
     for d in (d for d in days if (y < last_advent_of_code_year or d <= last_advent_of_code_day)):
-        print("    Day "+str(d));
+        print("    Day "+str(d))
         if not os.path.exists(year_pos+"/"+str(d)):
             os.mkdir(year_pos+"/"+str(d))
         day_pos = year_pos+"/"+str(d)
         if MAKE_CODE_TEMPLATE and not os.path.exists(day_pos+"/solution.py"):
             code = open(day_pos+"/solution.py", "w+")
-            code.write("# Advent of code Year "+str(y)+" Day "+str(d)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nwith open((__file__.rstrip(\"solution.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))")
+            code.write("from time import time\n# Advent of code Year "+str(y)+" Day "+str(d)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nstart = time()\n\nwith open((__file__.rstrip(\"solution.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))\n\nprint(\"time elapsed: \" + str(time() - start))")
             code.close()
         if DOWNLOAD_INPUTS and (not os.path.exists(day_pos+"/input.txt") or OVERWRITE)and USER_SESSION_ID != "":
             done = False
