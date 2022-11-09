@@ -42,22 +42,12 @@ def step(pixel_data, infinite_bit):
             binString = ""
             for curY in range(y - 1, y + 2):
                 for curX in range(x - 1, x + 2):
-                    '''if (curX, curY) in pixel_data:
-                        if (minY <= curY <= maxY and minX <= curX <= maxX):
-                            binString += '1'
-                        else :
-                            binString+= str(infinite_bit)
-
+                    if (minY <= curY <= maxY and minX <= curX <= maxX):  ## why is this exactly needed?
+                        binString += str(int((curX, curY) in pixels))
                     else:
-                        binString += '0'
-                        '''
-                    index = index << 1
-                    index = index | (
-                        int((curX, curY) in pixels)
-                        if (minY <= curY <= maxY and minX <= curX <= maxX) ## ???
-                        else infinite_bit
-                    )
-            if alg[index] == 1:
+                        binString += str(infinite_bit)
+
+            if alg[int(binString,2)] == 1:
                 enhanced.add((x, y))
 
     return enhanced

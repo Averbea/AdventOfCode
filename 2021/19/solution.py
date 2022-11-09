@@ -1,5 +1,5 @@
 from time import time
-# Advent of code Year 2021 Day 22 solution
+# Advent of code Year 2021 Day 19 solution
 # Author = Averbea
 # Date = December 2021
 
