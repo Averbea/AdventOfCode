@@ -24,7 +24,7 @@ SESSION_ID_FILE = "UserSessionId.txt"
 
 # Folders will be created here.
 # # If you want to make a parent folder, change this to ex "./adventofcode/"
-BASE_FOLDER = "./test"
+BASE_FOLDER = "./"
 
 
 # Set to false to not download statements.

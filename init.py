@@ -102,21 +102,17 @@ def main():
     
 
     print("Setup will download data and create working directories and files for adventofcode.")
-    if not os.path.exists(BASE_FOLDER):
-        os.mkdir(BASE_FOLDER)
     for y in years:
         print("Year "+str(y))
-        if not os.path.exists(BASE_FOLDER+str(y)):
-            os.mkdir(BASE_FOLDER+str(y))
-        YEAR_FOLDER = BASE_FOLDER + str(y)
+
         for d in (d for d in days if (y < LAST_ADVENT_OF_CODE_YEAR or d <= LAST_ADVENT_OF_CODE_DAY)):
             print("    Day "+str(d))
             
             link_to_day = BASE_LINK + str(y) + "/day/" + str(d)
+            DAY_FOLDER  = BASE_FOLDER + str(y) + "/" + str(d) + "/"
+            if not os.path.exists(DAY_FOLDER):
+                os.makedirs(DAY_FOLDER)
 
-            if not os.path.exists(YEAR_FOLDER+"/"+str(d)):
-                os.mkdir(YEAR_FOLDER+"/"+str(d))
-            DAY_FOLDER = YEAR_FOLDER+"/"+str(d)
             if MAKE_CODE_TEMPLATE and not os.path.exists(DAY_FOLDER+"/solution.py"):
                 make_code_template(DAY_FOLDER, y, d, AUTHOR, DATE)
             if DOWNLOAD_INPUTS and (not os.path.exists(DAY_FOLDER+"/input.txt") or OVERWRITE)and USER_SESSION_ID != "":
@@ -129,5 +125,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # Code
     main()
