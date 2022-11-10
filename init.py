@@ -6,45 +6,53 @@
     Date = 06/12/2018
  '''
 
-import sys
 import os
+import sys
 
 from config import *
-
 
 try:
     import requests
 except ImportError:
     sys.exit("You need requests module. Install it by running pip install requests.")
 
-f = open(SESSION_ID_FILE, "r")
+f = open(SESSION_ID_FILE, "r", encoding="UTF-8")
 USER_SESSION_ID = f.read().strip()
 
 
 
-'''
-    creates URL icon in folder
 
-'''
-def create_url(folder, link_to_day):
-    url = open(folder+"/link.url", "w+")
-    url.write("[InternetShortcut]\nURL="+link_to_day+"\n")
-    url.close()
+def create_url(folder:str, link_to_day:str):
+    """creates an url icon
 
-def download_statements(folder, link_to_day):
+    Args:
+        folder (str): folder to create icon in
+        link_to_day (str): url for link
+    """
+    with open(folder+"/link.url", "w+", encoding="UTF-8") as url:
+        url.write("[InternetShortcut]\nURL="+link_to_day+"\n")
+        url.close()
+
+def download_statements(folder:str, link_to_day:str):
+    """downloads the task statement
+
+    Args:
+        folder (str): folder to download statement to
+        link_to_day (str): url to day task
+    """
     done = False
     error_count = 0
     while not done:
         try:
-            with requests.get(url=link_to_day, cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}) as response:
+            with requests.get(url=link_to_day, cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}, timeout={print("timeout")}) as response:
                 if response.ok:
                     html = response.text
                     start = html.find("<article")
                     end = html.rfind("</article>")+len("</article>")
                     end_success = html.rfind("</code>")+len("</code>")
-                    statement = open(folder+"/statement.md", "w+")
-                    statement.write(html[start:max(end, end_success)])
-                    statement.close()
+                    with open(folder+"/statement.md", "w+", encoding="UTF-8") as statement:
+                        statement.write(html[start:max(end, end_success)])
+                        statement.close()
                 done = True
         except requests.exceptions.RequestException:
             error_count += 1
@@ -59,16 +67,22 @@ def download_statements(folder, link_to_day):
 
 
 def download_inputs(folder, day_link):
+    """download the inputs
+
+    Args:
+        folder (str): folder to download to
+        day_link (str): url to day task
+    """
     done = False
     error_count = 0
-    while(not done):
+    while not done:
         try:
-            with requests.get(url=day_link+"/input", cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}) as response:
+            with requests.get(url=day_link+"/input", cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}, timeout={print("timeout")}) as response:
                 if response.ok:
                     data = response.text
-                    input = open(folder+"/input.txt", "w+")
-                    input.write(data.rstrip("\n"))
-                    input.close()
+                    with open(folder+"/input.txt", "w+", encoding="UTF-8") as input_file:
+                        input_file.write(data.rstrip("\n"))
+                        input_file.close()
                 else:
                     print("        Server response for input is not valid.")
             done = True
@@ -81,13 +95,22 @@ def download_inputs(folder, day_link):
                 print("        Error while requesting input from server. Request probably timed out. Trying again.")
             else:
                 print("        Trying again.")
-        except Exception as e:
-            print("        Non handled error while requesting input from server. " + str(e))
+        except Exception as exception:
+            print("        Non handled error while requesting input from server. " + str(exception))
             done = True
 
 
 def make_code_template(folder, year, day, author, date):
-    code = open(folder+"/solution.py", "w+")
+    """creates a coding template
+
+    Args:
+        folder (str): folder to create the template in
+        year (): year for this task
+        day (): day for this task
+        author (str): author of the code
+        date (): Date description in code template
+    """
+    code = open(folder+"/solution.py", "w+", encoding="UTF-8")
     code.write("from time import time\n# Advent of code Year "+str(year)+" Day "+str(day)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nstart = time()\n\nwith open((__file__.rstrip(\"solution.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))\n\nprint(\"time elapsed: \" + str(time() - start))")
     code.close()
 
@@ -95,11 +118,12 @@ def make_code_template(folder, year, day, author, date):
 
 
 def main():
-    
+    """downloads all tasks and inputs according to config
+    """
     years = range(STARTING_ADVENT_OF_CODE_YEAR, LAST_ADVENT_OF_CODE_YEAR+1)
     days = range(1,26)
-    BASE_LINK = "https://adventofcode.com/" # ex use : https://adventofcode.com/2017/day/19/input
-    
+    base_link = "https://adventofcode.com/" # ex use : https://adventofcode.com/2017/day/19/input
+
 
     print("Setup will download data and create working directories and files for adventofcode.")
     for y in years:
@@ -107,20 +131,20 @@ def main():
 
         for d in (d for d in days if (y < LAST_ADVENT_OF_CODE_YEAR or d <= LAST_ADVENT_OF_CODE_DAY)):
             print("    Day "+str(d))
-            
-            link_to_day = BASE_LINK + str(y) + "/day/" + str(d)
-            DAY_FOLDER  = BASE_FOLDER + str(y) + "/" + str(d) + "/"
-            if not os.path.exists(DAY_FOLDER):
-                os.makedirs(DAY_FOLDER)
 
-            if MAKE_CODE_TEMPLATE and not os.path.exists(DAY_FOLDER+"/solution.py"):
-                make_code_template(DAY_FOLDER, y, d, AUTHOR, DATE)
-            if DOWNLOAD_INPUTS and (not os.path.exists(DAY_FOLDER+"/input.txt") or OVERWRITE)and USER_SESSION_ID != "":
-                download_inputs(DAY_FOLDER, link_to_day)
-            if DOWNLOAD_STATEMENTS and (not os.path.exists(DAY_FOLDER+"/statement.md") or OVERWRITE):
-                download_statements(DAY_FOLDER, link_to_day)
-            if MAKE_URL and (not os.path.exists(DAY_FOLDER+"/link.url") or OVERWRITE):
-                create_url(DAY_FOLDER, link_to_day)
+            link_to_day = base_link + str(y) + "/day/" + str(d)
+            day_folder  = BASE_FOLDER + str(y) + "/" + str(d) + "/"
+            if not os.path.exists(day_folder):
+                os.makedirs(day_folder)
+
+            if MAKE_CODE_TEMPLATE and not os.path.exists(day_folder+"/solution.py"):
+                make_code_template(day_folder, y, d, AUTHOR, DATE)
+            if DOWNLOAD_INPUTS and (not os.path.exists(day_folder+"/input.txt") or OVERWRITE)and USER_SESSION_ID != "":
+                download_inputs(day_folder, link_to_day)
+            if DOWNLOAD_STATEMENTS and (not os.path.exists(day_folder+"/statement.md") or OVERWRITE):
+                download_statements(day_folder, link_to_day)
+            if MAKE_URL and (not os.path.exists(day_folder+"/link.url") or OVERWRITE):
+                create_url(day_folder, link_to_day)
     print("Setup complete : adventofcode working directories and files initialized with success.")
 
 
