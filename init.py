@@ -129,16 +129,12 @@ def make_code_template(folder, year, day, author, date):
         author (str): author of the code
         date (): Date description in code template
     """
-    # code = open(folder+"/solution.py", "w+", encoding="UTF-8")
-    # code.write("from time import time\n# Advent of code Year "+str(year)+" Day "+str(day)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nstart = time()\n\nwith open((__file__.rstrip(\"solution.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))\n\nprint(\"time elapsed: \" + str(time() - start))")
-    # code.close()
-
-    with open("./template.py", "r", encoding="UTF-8") as template:
-        shutil.copy("./template.py", folder + "solution.py")
-        docstring = '""" Advent of code Year ' + str(year) + ' Day ' + str(day)  +' solution \n'
-        docstring += 'Author = ' + author + '\n'
-        docstring += 'Date = ' + date + '\n"""\n\n'
-        prepend_line(folder + "solution.py",docstring)
+    
+    shutil.copy("./template.py", folder + "solution.py")
+    docstring = '""" Advent of code Year ' + str(year) + ' Day ' + str(day)  +' solution \n'
+    docstring += 'Author = ' + author + '\n'
+    docstring += 'Date = ' + date + '\n"""\n\n'
+    prepend_line(folder + "solution.py",docstring)
 
 
 
