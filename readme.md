@@ -15,16 +15,17 @@ The original Version can be found in his own [repository](https://github.com/Ale
 You can use init.py if you want to copy this repo template and answer the problems by yourself.
 Its functionnalities include making directories, downloading statements, downloading inputs, making code templates and making url links.
 
+# Using this repo as template
+
 ### Prerequisites
-You need python 3 and its module "requests" installed.
+You need python3 and its module "requests" installed.
 To install the module requests, use
 ```shell
 pip install requests
 ```
-### Running init.py
-To run init.py, follow these steps:
+### Usage
 * Create a new folder.
-* Download init.py and config.py and put it into the folder.
+* Download init.py, config.py and update.py and put them into the folder.
 * Put your Session ID into a seperate file specified in config.py
 * Change other user parameters in the config.py as desired.
 * Change the date of the last advent of code year and day if needed.
@@ -32,6 +33,15 @@ To run init.py, follow these steps:
 ```shell
 python init.py
 ```
+
+When you finished the first part of the coding challenge, update.py can be used to refetch the statement. 
+Open it, change the parameters to the desired date and run 
+
+```shell
+python update.py
+```
+
+
 ### Users Parameters
 The only important parameter is your **SESSION_ID**, which has to be set correctly for the script to download your personnal problems input.
 To recover your session:
