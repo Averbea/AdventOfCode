@@ -8,6 +8,7 @@
 
 import os
 import sys
+import shutil
 
 from config import *
 
@@ -44,7 +45,7 @@ def download_statements(folder:str, link_to_day:str):
     error_count = 0
     while not done:
         try:
-            with requests.get(url=link_to_day, cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}, timeout={print("timeout")}) as response:
+            with requests.get(url=link_to_day, cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}, timeout=10) as response:
                 if response.ok:
                     html = response.text
                     start = html.find("<article")
@@ -77,7 +78,7 @@ def download_inputs(folder, day_link):
     error_count = 0
     while not done:
         try:
-            with requests.get(url=day_link+"/input", cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}, timeout={print("timeout")}) as response:
+            with requests.get(url=day_link+"/input", cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}, timeout=10) as response:
                 if response.ok:
                     data = response.text
                     with open(folder+"/input.txt", "w+", encoding="UTF-8") as input_file:
@@ -100,8 +101,26 @@ def download_inputs(folder, day_link):
             done = True
 
 
+
+def prepend_line(file_name, line):
+    """ Insert given string as a new line at the beginning of a file """
+    # define name of temporary dummy file
+    dummy_file = file_name + '.bak'
+    # open original file in read mode and dummy file in write mode
+    with open(file_name, 'r') as read_obj, open(dummy_file, 'w') as write_obj:
+        # Write given line to the dummy file
+        write_obj.write(line + '\n')
+        # Read lines from original file one by one and append them to the dummy file
+        for line in read_obj:
+            write_obj.write(line)
+    # remove original file
+    os.remove(file_name)
+    # Rename dummy file as the original file
+    os.rename(dummy_file, file_name)
+
+
 def make_code_template(folder, year, day, author, date):
-    """creates a coding template
+    """creates a coding template from (uses template.py)
 
     Args:
         folder (str): folder to create the template in
@@ -110,10 +129,16 @@ def make_code_template(folder, year, day, author, date):
         author (str): author of the code
         date (): Date description in code template
     """
-    code = open(folder+"/solution.py", "w+", encoding="UTF-8")
-    code.write("from time import time\n# Advent of code Year "+str(year)+" Day "+str(day)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nstart = time()\n\nwith open((__file__.rstrip(\"solution.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))\n\nprint(\"time elapsed: \" + str(time() - start))")
-    code.close()
+    # code = open(folder+"/solution.py", "w+", encoding="UTF-8")
+    # code.write("from time import time\n# Advent of code Year "+str(year)+" Day "+str(day)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nstart = time()\n\nwith open((__file__.rstrip(\"solution.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))\n\nprint(\"time elapsed: \" + str(time() - start))")
+    # code.close()
 
+    with open("./template.py", "r", encoding="UTF-8") as template:
+        shutil.copy("./template.py", folder + "solution.py")
+        docstring = '""" Advent of code Year ' + str(year) + ' Day ' + str(day)  +' solution \n'
+        docstring += 'Author = ' + author + '\n'
+        docstring += 'Date = ' + date + '\n"""\n\n'
+        prepend_line(folder + "solution.py",docstring)
 
 
 
