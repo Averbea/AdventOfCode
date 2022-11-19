@@ -5,7 +5,6 @@ Most of it is missing and will be added as I complete them. You can check the co
 <!--- advent_readme_stars table ---> 
 
 # Credits
-
 The init.py was originally created by [AlexeSimon](https://github.com/AlexeSimon) and adapted by me
 The original Version can be found in his own [repository](https://github.com/AlexeSimon/adventofcode)
 
