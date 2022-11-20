@@ -5,7 +5,7 @@ Most of it is missing and will be added as I complete them. You can check the co
 
 
 ## Stats
-![](https://img.shields.io/badge/2021%20total%20stars%20⭐-38-yellow)
+![](https://img.shields.io/badge/2021%20total%20stars%20⭐-39-yellow)
 &nbsp;&nbsp;
 ![](https://img.shields.io/badge/2021%20days%20completed-19-red)
 
@@ -39,6 +39,7 @@ Most of it is missing and will be added as I complete them. You can check the co
 | [Day 17](https://adventofcode.com/2021/day/17) | ⭐ | ⭐ |
 | [Day 20](https://adventofcode.com/2021/day/20) | ⭐ | ⭐ |
 | [Day 21](https://adventofcode.com/2021/day/21) | ⭐ | ⭐ |
+| [Day 22](https://adventofcode.com/2021/day/22) | ⭐ |   |
 <!--- advent_readme_stars table_2021 ---> 
 
 # Credits
