@@ -22,7 +22,7 @@ class Probe:
         self.velocity[1] -= 1
 
     def isInTarget(self):
-        if target["minX"] < self.position[0] < target["maxX"] and  target["minY"] <  self.position[1] < target["maxY"]:
+        if target["minX"] <= self.position[0] <= target["maxX"] and  target["minY"] <=  self.position[1] <= target["maxY"]:
             return True
         return False
 
@@ -64,6 +64,7 @@ for x in range(1, target["maxX"] + 1):
         success, val = probe.simulate()
         if success:
             vels.append((x,y))
+
 print("Part Two : "+ str(len(vels)))
 
 print("time elapsed: " + str(time() - start))
