@@ -2,6 +2,14 @@
 This repo contains my personnal answers to all of the problems proposed by [AdventOfCode](https://adventofcode.com/).
 Most of it is missing and will be added as I complete them. You can check the commits or the list below to know which has been completed. I also propose to viewers to use init.py to copy this repo hierarchy and get down to coding themselves.
 # Current Results
+
+
+## 2021
+![](https://img.shields.io/badge/stars%20⭐-0-yellow)
+![](https://img.shields.io/badge/days%20completed-0-red)
+
+
+
 <!--- advent_readme_stars table_2021 --->
 ## 2021 Results
 
