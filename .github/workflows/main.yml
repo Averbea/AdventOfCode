@@ -3,6 +3,7 @@ on:
   push:
     branches: 
       - 'master'
+   workflow_dispatch: 
     
 jobs:
   results-table:
@@ -23,13 +24,25 @@ jobs:
           year: 2022
           sessionCookie: ${{ secrets.AOC_SESSION }}
           tableMarker: <!--- advent_readme_stars table_2022 --->
-      - name: aoc-badges
+      - name: aoc-badges 2021
         uses: joblo2213/aoc-badges-action@v3
         with:
           userid: ${{ secrets.AOC_USERID }}
           session: ${{ secrets.AOC_SESSION }}
           year: 2021
+          starsRegex: '(?<=https:\/\/img\.shields\.io\/badge\/2021%20total%20stars%20⭐-)[0-9]+(?=-yellow)'             
+          daysCompletedRegex: '(?<=https:\/\/img\.shields\.io\/badge\/2021%20days%20completed-)[0-9]+(?=-red)'
           file: 'README.md'
+      - name: aoc-badges 2022
+        uses: joblo2213/aoc-badges-action@v3
+        with:
+          userid: ${{ secrets.AOC_USERID }}
+          session: ${{ secrets.AOC_SESSION }}
+          year: 2022
+          starsRegex: '(?<=https:\/\/img\.shields\.io\/badge\/2022%20total%20stars%20⭐-)[0-9]+(?=-yellow)'             
+          daysCompletedRegex: '(?<=https:\/\/img\.shields\.io\/badge\/2022%20days%20completed-)[0-9]+(?=-red)'
+          file: 'README.md'
+      
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
