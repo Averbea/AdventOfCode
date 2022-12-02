@@ -1,4 +1,4 @@
-""" Advent of code Year 2022 Day 2 solution 
+""" Advent of code Year 2022 Day 2 solution
 Author = Averbea
 Date = December 2022
 """
@@ -7,14 +7,13 @@ Date = December 2022
 from time import time
 import os
 
-from sklearn.utils import resample
 start = time()
 
 with open(os.path.dirname(__file__) +"/input.txt", 'r', encoding="UTF-8") as inputFile:
     inputs = inputFile.read().split("\n")
 
 GUIDE = []
-for i in inputs: 
+for i in inputs:
     GUIDE.append(i.split(" "))
 
 ENEMY_MOVES  = {
@@ -41,22 +40,21 @@ SCORES = {
 HANDS = ["Rock", "Paper", "Scissors"]
 
 
-def result(enemyMove, yourMove):
+def result(enemy_move, your_move):
     """calculates the result of a round
 
     Args:
-        enemyMove (string): the enemy Move
-        yourMove (string): your Move
+        enemy_move (string): the enemy Move
+        your_move (string): your Move
 
     Returns:
         number: total score of round
     """
-    
 
-    e_index = HANDS.index(enemyMove)
-    r_index = HANDS.index(yourMove)
-    
-    if r_index == e_index: 
+    e_index = HANDS.index(enemy_move)
+    r_index = HANDS.index(your_move)
+
+    if r_index == e_index:
         return "draw"
 
     if r_index == (e_index + 1 )% len(HANDS):
@@ -85,23 +83,23 @@ RESULTS = {
     'Z': "win"
 }
 
-def response_for_result(enemyMove, expectedResult):
+def response_for_result(enemy_move, expected_result):
     """calculates a response to get a result
 
     Args:
-        enemyMove (string): the enemies move
-        expectedResult (string): the expected result
+        enemy_move (string): the enemies move
+        expected_result (string): the expected result
 
     Returns:
         str: move to counter enemy move for expected result
     """
-    match expectedResult:
+    match expected_result:
         case "draw":
-            return enemyMove
+            return enemy_move
         case "win":
-            return HANDS[(HANDS.index(enemyMove) + 1) % len(HANDS)]
+            return HANDS[(HANDS.index(enemy_move) + 1) % len(HANDS)]
         case "lose":
-            return HANDS[(HANDS.index(enemyMove) -1 ) % len(HANDS)]
+            return HANDS[(HANDS.index(enemy_move) -1 ) % len(HANDS)]
 
 def part_two():
     """caluclates the solution for part two
