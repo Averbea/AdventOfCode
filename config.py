@@ -8,15 +8,15 @@
 DATE = "December 2022"
 
 # You can go as early as 2015.
-STARTING_ADVENT_OF_CODE_YEAR = 2021
+STARTING_ADVENT_OF_CODE_YEAR = 2022
 
 # The setup will download all advent of code data
 # up until that date included
-LAST_ADVENT_OF_CODE_YEAR = 2021
+LAST_ADVENT_OF_CODE_YEAR = 2022
 
 # If the year isn't finished, the setup will download days
 # up until that day included for the last year
-LAST_ADVENT_OF_CODE_DAY = 24
+LAST_ADVENT_OF_CODE_DAY = 2
 
 
 #### General Settings
