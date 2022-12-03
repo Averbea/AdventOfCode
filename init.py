@@ -7,8 +7,8 @@
  '''
 
 import os
-import sys
 import shutil
+import sys
 
 from config import *
 
@@ -145,6 +145,9 @@ def main():
     days = range(1,26)
     base_link = "https://adventofcode.com/" # ex use : https://adventofcode.com/2017/day/19/input
 
+    if ONLY_INIT_ONE_DAY: 
+        years =  [LAST_ADVENT_OF_CODE_YEAR]
+        days = [LAST_ADVENT_OF_CODE_DAY]
 
     print("Setup will download data and create working directories and files for adventofcode.")
     for y in years:

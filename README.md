@@ -24,7 +24,7 @@ The original Version can be found in his own [repository](https://github.com/Ale
 
 ## Copying the template
 
-You can use `init.py`, `config.py`, `template.py` and `update.py` if you want to copy this repo template and answer the problems by yourself.
+You can use `init.py`, `config.py`, `template.py` if you want to copy this repo template and answer the problems by yourself.
 Its functionnalities include making directories, downloading statements, downloading inputs, making code templates and making url links.
 
 # Using this repo as template
@@ -37,7 +37,7 @@ pip install requests
 ```
 ### Usage
 * Create a new folder.
-* Download `init.py`, `config.py`, `template.py` and `update.py` and put them into the folder.
+* Download `init.py`, `config.py`, `template.py` and put them into the folder.
 * Put your Session ID into a seperate file specified in config.py
 * Change other user parameters in the config.py as desired.
 * Change the date of the last advent of code year and day if needed.
@@ -46,17 +46,13 @@ pip install requests
 python init.py
 ```
 
-When you finished the first part of the coding challenge, update.py can be used to refetch the statement. 
-Open it, change the parameters to the desired date and run 
+When you finished the first part of the coding challenge, you can rerun `init.py` to refetch the statement. 
+`OVERWRITE` has to be set to `True` for this. PLEASE ONLY DO THIS UB COMBINATION WITH `ONLY_INIT_ONE_DAY = True` 
 
-```shell
-python update.py
-```
-
-### configuring the template
+### Configuring the template
 The code template can be modified by changing `template.py`
 ### Users Parameters
-The only important parameter is your **SESSION_ID**, which has to be set correctly for the script to download your personnal problems input.
+The only important parameter is your **`SESSION_ID`**, which has to be set correctly for the script to download your personnal problems input.
 To recover your session:
 * Go to [AdventOfCode](https://adventofcode.com/).
 * Log in by any means (GitHub, Google, ...).

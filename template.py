@@ -1,5 +1,6 @@
-from time import time
 import os
+from time import time
+
 start = time()
 
 with open(os.path.dirname(__file__) +"/input.txt", 'r', encoding="UTF-8") as inputFile:
