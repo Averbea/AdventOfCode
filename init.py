@@ -62,8 +62,8 @@ def download_statements(folder:str, link_to_day:str):
                 done = True
             else:
                 print("        Error while requesting statement from server. Request probably timed out. Trying again.")
-        except Exception as e:
-            print("        Non handled error while requesting statement from server. " + str(e))
+        except Exception as exc:
+            print("        Non handled error while requesting statement from server. " + str(exc))
             done = True
 
 
@@ -107,7 +107,7 @@ def prepend_line(file_name, line):
     # define name of temporary dummy file
     dummy_file = file_name + '.bak'
     # open original file in read mode and dummy file in write mode
-    with open(file_name, 'r') as read_obj, open(dummy_file, 'w') as write_obj:
+    with open(file_name, 'r', encoding="utf-8") as read_obj, open(dummy_file, 'w', encoding="utf-8") as write_obj:
         # Write given line to the dummy file
         write_obj.write(line + '\n')
         # Read lines from original file one by one and append them to the dummy file
@@ -131,7 +131,7 @@ def make_code_template(folder, year, day, author, date):
     """
     
     shutil.copy("./template.py", folder + "solution.py")
-    docstring = '""" Advent of code Year ' + str(year) + ' Day ' + str(day)  +' solution \n'
+    docstring = '""" Advent of code Year ' + str(year) + ' Day ' + str(day)  +' solution\n'
     docstring += 'Author = ' + author + '\n'
     docstring += 'Date = ' + date + '\n"""\n\n'
     prepend_line(folder + "solution.py",docstring)
