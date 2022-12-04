@@ -16,7 +16,7 @@ LAST_ADVENT_OF_CODE_YEAR = 2022
 
 # If the year isn't finished, the setup will download days
 # up until that day included for the last year
-LAST_ADVENT_OF_CODE_DAY = 3
+LAST_ADVENT_OF_CODE_DAY = 4
 
 
 #### General Settings
