@@ -94,14 +94,14 @@ class FileSystem:
     def get_size(self):
         """get the size of this File System Item and it's contents"""
         total_size = 0
-        for key, child in self.children.items():
+        for _ , child in self.children.items():
             total_size += child.get_size()
         return total_size
 
     def print(self, prefix=""):
         """print this File System and its contents to the console"""
         print(prefix + "--" + str(self))
-        for key, child in self.children.items():
+        for _, child in self.children.items():
             child.print(prefix +  "  |")
 
 
