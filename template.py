@@ -38,7 +38,7 @@ def main():
     print("time elapsed: " + str(time_needed))
 
     time_needed, result = measure_timing(part_two)
-    print("\nPart Two : " + str(part_two()))
+    print("\nPart Two : " + str(result))
     print("time elapsed: " + str(time_needed))
 
 
