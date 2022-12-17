@@ -10,9 +10,9 @@ Most of it is missing and will be added as I complete them. You can check the co
 ![](https://img.shields.io/badge/2021%20days%20completed-19-red)
 
 
-![](https://img.shields.io/badge/2022%20total%20stars%20⭐-28-yellow)
+![](https://img.shields.io/badge/2022%20total%20stars%20⭐-31-yellow)
 &nbsp;&nbsp;
-![](https://img.shields.io/badge/2022%20days%20completed-14-red)
+![](https://img.shields.io/badge/2022%20days%20completed-15-red)
 
 
 # Credits
