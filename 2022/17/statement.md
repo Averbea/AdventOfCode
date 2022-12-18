@@ -322,3 +322,8 @@ A new rock begins falling:
 <p>To prove to the elephants your simulation is accurate, they want to know how tall the tower will get after 2022 rocks have stopped (but before the 2023rd rock begins falling). In this example, the tower of rocks will be <code><em>3068</em></code> units tall.</p>
 <p><em>How many units tall will the tower of rocks be after 2022 rocks have stopped falling?</em></p>
 </article>
+<p>Your puzzle answer was <code>3232</code>.</p><article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>The elephants are not impressed by your simulation. They demand to know how tall the tower will be after <code><em>1000000000000</em></code> rocks have stopped! Only then will they feel confident enough to proceed through the cave.</p>
+<p>In the example above, the tower would be <code><em>1514285714288</em></code> units tall!</p>
+<p><em>How tall will the tower be after <code>1000000000000</code> rocks have stopped?</em></p>
+</article>
+<p>Your puzzle answer was <code>1585632183915</code>
