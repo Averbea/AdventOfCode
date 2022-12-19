@@ -4,10 +4,8 @@ Date = December 2022
 """
 
 
-from collections import deque
 from copy import copy
 from dataclasses import dataclass
-from functools import lru_cache
 import os
 from time import time
 
@@ -56,6 +54,7 @@ def parse_input():
 
 
 def step_time(ores, robots):
+    """make a time step"""
     new_ores = copy(ores)
     for i in range(4):
         new_ores[i] += robots[i]
@@ -63,6 +62,7 @@ def step_time(ores, robots):
 
 
 def can_buy_robot(ores, robot_type: RobotType):
+    """check if given robot type can be bought"""
     if ores[0] >= robot_type.ore_cost and \
             ores[1] >= robot_type.clay_cost and \
             ores[2] >= robot_type.obsidian_cost:
@@ -71,6 +71,7 @@ def can_buy_robot(ores, robot_type: RobotType):
 
 
 def buy_robot(old_ores, old_robots, robot: RobotType):
+    """buy given robot and return new ores and robots array"""
     ores = copy(old_ores)
     ores[0] -= robot.ore_cost
     ores[1] -= robot.clay_cost
@@ -85,8 +86,9 @@ def buy_robot(old_ores, old_robots, robot: RobotType):
 
     return ores, robots
 
-cache = {}
+
 def dfs(robot_types: list[RobotType], cache: dict, time_amount: int, ores, robots, max_ore_cost, max_clay_cost, max_obsidian_cost):
+    """depth first search to find solution"""
     assert time_amount >= 0
     # print(robots)
     max_geodes = ores[3]
@@ -127,12 +129,13 @@ def dfs(robot_types: list[RobotType], cache: dict, time_amount: int, ores, robot
     return max_geodes
 
 
-def solve(max_time, only_first_three_blueprints):
+def solve(max_time, part2):
     """solve the problem for given time"""
     blueprints = parse_input()
     sum_quality_levels = 0
+    product_opened_geodes = 1
     for i, blueprint in enumerate(blueprints, start=1):
-        if only_first_three_blueprints and i >= 3:
+        if part2 and i > 3:
             continue
         print("Blueprint", i)
         max_ore_cost = 0
@@ -147,9 +150,10 @@ def solve(max_time, only_first_three_blueprints):
         initial_robots = [1, 0, 0, 0]
         opened_geodes = dfs(blueprint, {}, max_time, initial_ores,
                             initial_robots, max_ore_cost, max_clay_cost, max_obsidian_cost)
+        product_opened_geodes *= opened_geodes
         sum_quality_levels += opened_geodes * i
         print("\tcan open up to", opened_geodes, "geodes")
-    return sum_quality_levels
+    return product_opened_geodes if part2 else sum_quality_levels
 
 
 def part_one():

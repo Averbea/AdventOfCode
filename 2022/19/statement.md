@@ -153,8 +153,7 @@ The new geode-cracking robot is ready; you now have 2 of them.
 <p>Determine the <em>quality level</em> of each blueprint by <em>multiplying that blueprint's ID number</em> with the largest number of geodes that can be opened in 24 minutes using that blueprint. In this example, the first blueprint has ID 1 and can open 9 geodes, so its quality level is <code><em>9</em></code>. The second blueprint has ID 2 and can open 12 geodes, so its quality level is <code><em>24</em></code>. Finally, if you <em>add up the quality levels</em> of all of the blueprints in the list, you get <code><em>33</em></code>.</p>
 <p>Determine the quality level of each blueprint using the largest number of geodes it could produce in 24 minutes. <em>What do you get if you add up the quality level of all of the blueprints in your list?</em></p>
 </article>
-<p>Your puzzle answer was <code>817</code>.</p><p class="day-success">The first half of this puzzle is complete! It provides one gold star: *</p>
-<article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>While you were choosing the best blueprint, the elephants found some food on their own, so you're not in as much of a hurry; you figure you probably have <em>32 minutes</em> before the wind changes direction again and you'll need to get out of range of the erupting volcano.</p>
+<p>Your puzzle answer was <code>817</code>.</p><article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>While you were choosing the best blueprint, the elephants found some food on their own, so you're not in as much of a hurry; you figure you probably have <em>32 minutes</em> before the wind changes direction again and you'll need to get out of range of the erupting volcano.</p>
 <p>Unfortunately, one of the elephants <em>ate most of your blueprint list</em>! Now, only the first three blueprints in your list are intact.</p>
 <p>In 32 minutes, the largest number of geodes blueprint 1 (from the example above) can open is <code><em>56</em></code>. One way to achieve that is:</p>
 <pre><code>== Minute 1 ==
@@ -356,3 +355,4 @@ The new geode-cracking robot is ready; you now have 9 of them.
 <p>You <em>no longer have enough blueprints to worry about quality levels</em>. Instead, for each of the first three blueprints, determine the largest number of geodes you could open; then, multiply these three values together.</p>
 <p>Don't worry about quality levels; instead, just determine the largest number of geodes you could open using each of the first three blueprints. <em>What do you get if you multiply these numbers together?</em></p>
 </article>
+<p>Your puzzle answer was <code>4216</code>
