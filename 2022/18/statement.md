@@ -21,3 +21,9 @@
 <p>In the above example, after counting up all the sides that aren't connected to another cube, the total surface area is <code><em>64</em></code>.</p>
 <p><em>What is the surface area of your scanned lava droplet?</em></p>
 </article>
+<p>Your puzzle answer was <code>3396</code>.</p><article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>Something seems off about your calculation. The cooling rate depends on exterior surface area, but your calculation also included the surface area of air pockets trapped in the lava droplet.</p>
+<p>Instead, consider only cube sides that could be reached by the water and steam as the lava droplet tumbles into the pond. The steam will expand to reach as much as possible, completely displacing any air on the outside of the lava droplet but never expanding diagonally.</p>
+<p>In the larger example above, exactly one cube of air is trapped within the lava droplet (at <code>2,2,5</code>), so the exterior surface area of the lava droplet is <code><em>58</em></code>.</p>
+<p><em>What is the exterior surface area of your scanned lava droplet?</em></p>
+</article>
+<p>Your puzzle answer was <code>2044</code>
