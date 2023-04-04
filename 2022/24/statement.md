@@ -222,10 +222,10 @@ Minute 18, move down:
 </code></pre>
 <p><em>What is the fewest number of minutes required to avoid the blizzards and reach the goal?</em></p>
 </article>
-<p>Your puzzle answer was <code>264</code>.</p><p class="day-success">The first half of this puzzle is complete! It provides one gold star: *</p>
-<article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>As the expedition reaches the far side of the valley, one of the Elves looks especially dismayed:</p>
+<p>Your puzzle answer was <code>264</code>.</p><article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>As the expedition reaches the far side of the valley, one of the Elves looks especially dismayed:</p>
 <p>He <em>forgot his snacks</em> at the entrance to the valley!</p>
 <p>Since you're so good at dodging blizzards, the Elves humbly request that you go back for his snacks. From the same initial conditions, how quickly can you make it from the start to the goal, then back to the start, then back to the goal?</p>
 <p>In the above example, the first trip to the goal takes <code>18</code> minutes, the trip back to the start takes <code>23</code> minutes, and the trip back to the goal again takes <code>13</code> minutes, for a total time of <code><em>54</em></code> minutes.</p>
 <p><em>What is the fewest number of minutes required to reach the goal, go back to the start, then reach the goal again?</em></p>
 </article>
+<p>Your puzzle answer was <code>789</code>
