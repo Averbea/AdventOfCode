@@ -15,6 +15,12 @@ Most of it is missing and will be added as I complete them. You can check the co
 ![](https://img.shields.io/badge/2022%20days%20completed-23-red)
 
 
+![](https://img.shields.io/badge/2023%20total%20stars%20⭐-0-yellow)
+&nbsp;&nbsp;
+![](https://img.shields.io/badge/2023%20days%20completed-0-red)
+
+
+
 # Credits
 The init.py was originally created by [AlexeSimon](https://github.com/AlexeSimon) and adapted by me
 The original Version can be found in his own [repository](https://github.com/AlexeSimon/adventofcode)
