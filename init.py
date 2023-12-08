@@ -21,20 +21,19 @@ f = open(SESSION_ID_FILE, "r", encoding="UTF-8")
 USER_SESSION_ID = f.read().strip()
 
 
-
-
-def create_url(folder:str, link_to_day:str):
+def create_url(folder: str, link_to_day: str):
     """creates an url icon
 
     Args:
         folder (str): folder to create icon in
         link_to_day (str): url for link
     """
-    with open(folder+"/link.url", "w+", encoding="UTF-8") as url:
-        url.write("[InternetShortcut]\nURL="+link_to_day+"\n")
+    with open(folder + "/link.url", "w+", encoding="UTF-8") as url:
+        url.write("[InternetShortcut]\nURL=" + link_to_day + "\n")
         url.close()
 
-def download_statements(folder:str, link_to_day:str):
+
+def download_statements(folder: str, link_to_day: str):
     """downloads the task statement
 
     Args:
@@ -45,13 +44,14 @@ def download_statements(folder:str, link_to_day:str):
     error_count = 0
     while not done:
         try:
-            with requests.get(url=link_to_day, cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}, timeout=10) as response:
+            with requests.get(url=link_to_day, cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT},
+                              timeout=10) as response:
                 if response.ok:
                     html = response.text
                     start = html.find("<article")
-                    end = html.rfind("</article>")+len("</article>")
-                    end_success = html.rfind("</code>")+len("</code>")
-                    with open(folder+"/statement.md", "w+", encoding="UTF-8") as statement:
+                    end = html.rfind("</article>") + len("</article>")
+                    end_success = html.rfind("</code>") + len("</code>")
+                    with open(folder + "/statement.md", "w+", encoding="UTF-8") as statement:
                         statement.write(html[start:max(end, end_success)])
                         statement.close()
                 done = True
@@ -78,10 +78,11 @@ def download_inputs(folder, day_link):
     error_count = 0
     while not done:
         try:
-            with requests.get(url=day_link+"/input", cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}, timeout=10) as response:
+            with requests.get(url=day_link + "/input", cookies={"session": USER_SESSION_ID},
+                              headers={"User-Agent": USER_AGENT}, timeout=10) as response:
                 if response.ok:
                     data = response.text
-                    with open(folder+"/input.txt", "w+", encoding="UTF-8") as input_file:
+                    with open(folder + "/input.txt", "w+", encoding="UTF-8") as input_file:
                         input_file.write(data.rstrip("\n"))
                         input_file.close()
                 else:
@@ -101,7 +102,6 @@ def download_inputs(folder, day_link):
             done = True
 
 
-
 def prepend_line(file_name, line):
     """ Insert given string as a new line at the beginning of a file """
     # define name of temporary dummy file
@@ -119,7 +119,7 @@ def prepend_line(file_name, line):
     os.rename(dummy_file, file_name)
 
 
-def make_code_template(folder, year, day, author, date):
+def make_code_template(folder, year, day, author):
     """creates a coding template from (uses template.py)
 
     Args:
@@ -127,47 +127,45 @@ def make_code_template(folder, year, day, author, date):
         year (): year for this task
         day (): day for this task
         author (str): author of the code
-        date (): Date description in code template
     """
-    
-    shutil.copy("./template.py", folder + "solution.py")
-    docstring = '""" Advent of code Year ' + str(year) + ' Day ' + str(day)  +' solution\n'
-    docstring += 'Author = ' + author + '\n'
-    docstring += 'Date = ' + date + '\n"""\n\n'
-    prepend_line(folder + "solution.py",docstring)
 
+    shutil.copy("./template.py", folder + "solution.py")
+    docstring = '""" Advent of code Year ' + str(year) + ' Day ' + str(day) + ' solution\n'
+    docstring += 'Author = ' + author + '\n"""\n\n'
+    prepend_line(folder + "solution.py", docstring)
 
 
 def main():
     """downloads all tasks and inputs according to config
     """
-    years = range(STARTING_ADVENT_OF_CODE_YEAR, LAST_ADVENT_OF_CODE_YEAR+1)
-    days = range(1,26)
-    base_link = "https://adventofcode.com/" # ex use : https://adventofcode.com/2017/day/19/input
+    years = range(STARTING_ADVENT_OF_CODE_YEAR, LAST_ADVENT_OF_CODE_YEAR + 1)
+    days = range(1, 26)
+    base_link = "https://adventofcode.com/"  # ex use : https://adventofcode.com/2017/day/19/input
 
-    if ONLY_INIT_ONE_DAY: 
-        years =  [LAST_ADVENT_OF_CODE_YEAR]
+    if ONLY_INIT_ONE_DAY:
+        years = [LAST_ADVENT_OF_CODE_YEAR]
         days = [LAST_ADVENT_OF_CODE_DAY]
 
     print("Setup will download data and create working directories and files for adventofcode.")
     for y in years:
-        print("Year "+str(y))
+        print("Year " + str(y))
 
         for d in (d for d in days if (y < LAST_ADVENT_OF_CODE_YEAR or d <= LAST_ADVENT_OF_CODE_DAY)):
-            print("    Day "+str(d))
+            print("    Day " + str(d))
 
             link_to_day = base_link + str(y) + "/day/" + str(d)
-            day_folder  = BASE_FOLDER + str(y) + "/" + str(d) + "/"
+            day_folder = BASE_FOLDER + str(y) + "/" + str(d) + "/"
             if not os.path.exists(day_folder):
                 os.makedirs(day_folder)
 
-            if MAKE_CODE_TEMPLATE and not os.path.exists(day_folder+"/solution.py"):
-                make_code_template(day_folder, y, d, AUTHOR, DATE)
-            if DOWNLOAD_INPUTS and (not os.path.exists(day_folder+"/input.txt") or OVERWRITE)and USER_SESSION_ID != "":
+            if MAKE_CODE_TEMPLATE and not os.path.exists(day_folder + "/solution.py"):
+                make_code_template(day_folder, y, d, AUTHOR)
+            if DOWNLOAD_INPUTS and (
+                    not os.path.exists(day_folder + "/input.txt") or OVERWRITE) and USER_SESSION_ID != "":
                 download_inputs(day_folder, link_to_day)
-            if DOWNLOAD_STATEMENTS and (not os.path.exists(day_folder+"/statement.md") or OVERWRITE):
+            if DOWNLOAD_STATEMENTS and (not os.path.exists(day_folder + "/statement.md") or OVERWRITE):
                 download_statements(day_folder, link_to_day)
-            if MAKE_URL and (not os.path.exists(day_folder+"/link.url") or OVERWRITE):
+            if MAKE_URL and (not os.path.exists(day_folder + "/link.url") or OVERWRITE):
                 create_url(day_folder, link_to_day)
     print("Setup complete : adventofcode working directories and files initialized with success.")
 
