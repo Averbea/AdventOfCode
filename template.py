@@ -23,5 +23,5 @@ def part_two():
 
 
 if __name__ == "__main__":
-    print("Part One : " + str(part_one()))
-    print("\nPart Two : " + str(part_two()))
+    print("Part One : " + str(part_one()) + "\n")
+    print("Part Two : " + str(part_two()))
