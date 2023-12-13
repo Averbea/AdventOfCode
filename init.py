@@ -175,6 +175,11 @@ def main():
                     futures.append(executor.submit(init_day, d, y))
 
             concurrent.futures.wait(futures)
+            # exceptions
+            for idx, future in enumerate(futures):
+                if future.exception() is not None:
+                    print("Error while initializing day "+str(idx))
+                    print('\t'+str(future.exception()))
     print("Setup complete : adventofcode working directories and files initialized with success.")
 
 
