@@ -4,7 +4,7 @@ Author = Averbea
 import re
 
 from utils.math import kgv
-from utils.tenplateutils import timeit, read_input_file
+from utils.templateutils import timeit, read_input_file
 
 
 def process_input():

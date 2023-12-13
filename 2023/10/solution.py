@@ -3,7 +3,7 @@ Author = Averbea
 Date = December 2023
 """
 
-from utils.tenplateutils import timeit, read_input_file
+from utils.templateutils import timeit, read_input_file
 
 
 def process_input():
