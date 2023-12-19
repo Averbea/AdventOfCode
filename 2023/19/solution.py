@@ -81,7 +81,7 @@ def get_overlaps(category_range, range_in_step):
     left = left if left[0] <= left[1] else None
 
     inside = (max(category_range[0], range_in_step[0]), min(category_range[1], range_in_step[1]))
-    # inside = inside if inside[0] <= inside[1] else None
+    inside = inside if inside[0] <= inside[1] else None
 
     right = (range_in_step[1] + 1, category_range[1])
     right = right if right[0] <= right[1] else None
