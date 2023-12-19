@@ -15,9 +15,9 @@ Most of it is missing and will be added as I complete them. You can check the co
 ![](https://img.shields.io/badge/2022%20days%20completed-23-red)
 
 
-![](https://img.shields.io/badge/2023%20total%20stars%20⭐-37-yellow)
+![](https://img.shields.io/badge/2023%20total%20stars%20⭐-38-yellow)
 &nbsp;&nbsp;
-![](https://img.shields.io/badge/2023%20days%20completed-18-red)
+![](https://img.shields.io/badge/2023%20days%20completed-19-red)
 
 
 
