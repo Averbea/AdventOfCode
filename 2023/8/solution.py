@@ -3,7 +3,6 @@ Author = Averbea
 """
 import re
 
-from utils.math import kgv
 from utils.templateutils import timeit, read_input_file
 
 
@@ -54,7 +53,7 @@ def part_two():
     print(cycles)
     # as it always takes the same steps to get to end state as it does to get from end state to next end state
     # we can just take the first step count of each cycle and calculate the kgv of those
-    return kgv([cycle[0] for cycle in cycles])
+    return math.lcm(*[cycle[0] for cycle in cycles])
 
 
 if __name__ == "__main__":
