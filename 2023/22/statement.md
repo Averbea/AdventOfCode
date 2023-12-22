@@ -100,3 +100,14 @@ AAA 1
 <p>So, in this example, <code><em>5</em></code> bricks can be safely disintegrated.</p>
 <p>Figure how the blocks will settle based on the snapshot. Once they've settled, consider disintegrating a single brick; <em>how many bricks could be safely chosen as the one to get disintegrated?</em></p>
 </article>
+<p>Your puzzle answer was <code>499</code>.</p><article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>Disintegrating bricks one at a time isn't going to be fast enough. While it might sound dangerous, what you really need is a <em>chain reaction</em>.</p>
+<p>You'll need to figure out the best brick to disintegrate. For each brick, determine how many <em>other bricks would fall</em> if that brick were disintegrated.</p>
+<p>Using the same example as above:</p>
+<ul>
+<li>Disintegrating brick <code>A</code> would cause all <code><em>6</em></code> other bricks to fall.</li>
+<li>Disintegrating brick <code>F</code> would cause only <code><em>1</em></code> other brick, <code>G</code>, to fall.</li>
+</ul>
+<p>Disintegrating any other brick would cause <em>no other bricks</em> to fall. So, in this example, the sum of <em>the number of other bricks that would fall</em> as a result of disintegrating each brick is <code><em>7</em></code>.</p>
+<p>For each brick, determine how many <em>other bricks</em> would fall if that brick were disintegrated. <em>What is the sum of the number of other bricks that would fall?</em></p>
+</article>
+<p>Your puzzle answer was <code>95059</code>

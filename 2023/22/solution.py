@@ -2,8 +2,9 @@
 Author = Averbea
 Date = December 2023
 """
-import copy
 import re
+from typing import Tuple
+
 import numpy as np
 from matplotlib import pyplot as plt
 from tqdm import tqdm
@@ -71,32 +72,26 @@ def let_bricks_fall(bricks):
 
 
 def get_supports_and_supported_by(bricks):
-
-    supports = {}
-    supported_by = {}
+    supports = [set() for _ in range(len(bricks))]
+    supported_by = [set() for _ in range(len(bricks))]
     for idx1, b1 in enumerate(bricks):
-        b1_m_x, b1_m_y, b1_m_z, b1_M_x, b1_M_y, b1_M_z = b1
-
-        supports[idx1] = {}
+        outer_min_x, outer_min_y, outer_min_z, outer_max_x, outer_max_y, outer_max_z = b1
 
         # check which bricks are supported by b1
         for idx2, b2 in enumerate(bricks):
-            support_points = []
             if idx1 == idx2:
                 continue
-            b2_m_x, b2_m_y, b2_m_z, b2_M_x, b2_M_y, b2_M_z = b2
-            if b2_m_z - 1 != b1_M_z:
+            inner_min_x, inner_min_y, inner_min_z, inner_max_x, inner_max_y, inner_max_z = b2
+            if inner_min_z - 1 != outer_max_z:
                 continue
-            for y in range(b2_m_y, b2_M_y + 1):
-                for x in range(b2_m_x, b2_M_x + 1):
-                    if b1_m_y <= y <= b1_M_y and b1_m_x <= x <= b1_M_x:
-                        support_points.append((x, y))
-            if len(support_points) > 0:
-                supports[idx1][idx2] = support_points
-                if idx2 not in supported_by:
-                    supported_by[idx2] = {}
-                supported_by[idx2][idx1] = support_points
+
+            for y in range(inner_min_y, inner_max_y + 1):
+                for x in range(inner_min_x, inner_max_x + 1):
+                    if outer_min_y <= y <= outer_max_y and outer_min_x <= x <= outer_max_x:
+                        supports[idx1].add(idx2)
+                        supported_by[idx2].add(idx1)
     return supports, supported_by
+
 
 @timeit
 def part_one():
@@ -105,10 +100,10 @@ def part_one():
     # let bricks fall
     let_bricks_fall(bricks)
     supports, supported_by = get_supports_and_supported_by(bricks)
-    #plot_as_voxel(bricks)
+    # plot_as_voxel(bricks)
     amount_to_safely_remove = 0
     for idx, brick in enumerate(bricks):
-        bricks_supported_by_this = list(supports[idx].keys())
+        bricks_supported_by_this = supports[idx]
         if len(bricks_supported_by_this) == 0:
             amount_to_safely_remove += 1
             continue
@@ -121,16 +116,21 @@ def part_one():
     return amount_to_safely_remove
 
 
+def amount_fallen_for(bricks: Tuple[Tuple[int, ...], ...], idx):
+    new_bricks = [list(brick) for brick in bricks]
+    new_bricks.pop(idx)
+    return let_bricks_fall(new_bricks)
+
+
 @timeit
 def part_two():
     """Solution for Part 2"""
     bricks = process_input()
     let_bricks_fall(bricks)
+    bricks = tuple([tuple(brick) for brick in bricks])
     sum_fallen = 0
     for idx, brick in enumerate(tqdm(bricks)):
-        new_bricks = copy.deepcopy(bricks)
-        new_bricks.pop(idx)
-        sum_fallen += let_bricks_fall(new_bricks)
+        sum_fallen += amount_fallen_for(bricks, idx)
     return sum_fallen
 
 
