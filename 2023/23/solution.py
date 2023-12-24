@@ -2,24 +2,20 @@
 Author = Averbea
 Date = December 2023
 """
-from collections import deque
 from functools import cache
-
 from matplotlib import pyplot as plt
-from tqdm import tqdm
-
 from utils.templateutils import timeit, read_input_file
 
 
 def process_input():
     """parses the input file and returns the result"""
-    file = read_input_file(test=False)
+    file = read_input_file(test=True)
     return tuple([tuple(row) for row in file.splitlines()])
 
 
 def visualize(data):
     """Visualizes the data in a matplotlib plot"""
-    figsize = len(data) // 3
+    fig_size = len(data) // 3
     color_mapping = {
         '#': 'black',
         '.': 'white',
@@ -28,11 +24,11 @@ def visualize(data):
         'v': 'lightblue',
         '^': 'lightblue'
     }
-    crossings = find_crosssings(data)
+    crossings = find_crossings(data)
 
     # Erstelle das Bild
     fig, ax = plt.subplots()
-    fig.set_size_inches((figsize, figsize))
+    fig.set_size_inches((fig_size, fig_size))
 
     for i, row in enumerate(data):
         for j, char in enumerate(row):
@@ -104,39 +100,43 @@ def get_possible_steps(pos, data, ignore_slopes=False):
     return steps
 
 
+def any_in_crossings(crossings, possible, crossing_to_ignore):
+    for c in crossings:
+        if c == crossing_to_ignore:
+            continue
+        if c in possible:
+            return True
+    return False
+
+
 def get_net_graph(data, ignore_slopes=False):
     starting_pos = (0, data[0].index('.'))
     target_pos = (len(data) - 1, data[-1].index('.'))
-    crossings = find_crosssings(data) + [starting_pos, target_pos]
+    crossings = [starting_pos, target_pos] + find_crossings(data)
     net_graph = {}
     for crossing in crossings:
         net_graph[crossing] = []
         possible_from_crossing = get_possible_steps(crossing, data, ignore_slopes=ignore_slopes)
         for step in possible_from_crossing:
-            path = set()
-            path.add(crossing)
-            path.add(step)
-            last = step
-            possible = get_possible_steps(last, data, ignore_slopes=ignore_slopes)
-            while True:
+            path = {crossing, step}
+
+            next_pos = step
+            possible = get_possible_steps(next_pos, data, ignore_slopes=ignore_slopes)
+            while not any_in_crossings(crossings, possible, crossing):
                 if len(possible) == 1 and possible[0] in path:
                     break
                 next_pos = possible[0] if possible[0] not in path else possible[1]
                 path.add(next_pos)
-                last = next_pos
-                possible = get_possible_steps(last, data, ignore_slopes=ignore_slopes)
+                possible = get_possible_steps(next_pos, data, ignore_slopes=ignore_slopes)
 
-                found = False
-                for cr in crossings:
-                    if cr in possible:
-                        net_graph[crossing].append((cr, len(path)))
-                        found = True
-                if found:
-                    break
+            for cr in crossings:
+                if cr in possible:
+                    net_graph[crossing].append((cr, len(path)))
+
     return net_graph
 
 
-def find_crosssings(data):
+def find_crossings(data):
     """Finds all crossings"""
     crossings = []
     for i, row in enumerate(data):
@@ -156,26 +156,26 @@ def part_one():
     starting_pos = (0, data[0].index('.'))
     target_pos = (len(data) - 1, data[-1].index('.'))
     # visualize(data)
-    pathlengths = []
+    path_lengths = []
     paths = []
-    starting_path = set([starting_pos])
+    starting_path = {starting_pos}
 
     paths.append((starting_path, starting_pos))
     while paths:
         path, last = paths.pop()
         possible = get_possible_steps(last, data)
         while len(possible) == 2:
-            next = possible[0] if possible[0] not in path else possible[1]
-            path.add(next)
-            last = next
+            next_pos = possible[0] if possible[0] not in path else possible[1]
+            path.add(next_pos)
+            last = next_pos
             possible = get_possible_steps(last, data)
             if last == target_pos:
-                pathlengths.append(len(path) - 1)
+                path_lengths.append(len(path) - 1)
                 break
 
         for step in possible:
             if step == target_pos:
-                pathlengths.append(len(path) - 1)
+                path_lengths.append(len(path) - 1)
             if step not in path:
                 if len(possible) == 1:
                     new_path = path
@@ -183,7 +183,7 @@ def part_one():
                     new_path = path.copy()
                 new_path.add(step)
                 paths.append((new_path, step))
-    return max(pathlengths)
+    return max(path_lengths)
 
 
 @timeit
@@ -196,19 +196,18 @@ def part_two():
     target_pos = (len(data) - 1, data[-1].index('.'))
 
     path_lengths = []
-    paths = []
-    paths.append((starting_pos, [], 0))
+    paths = [(starting_pos, [], 0)]
     while paths:
         last, path, length = paths.pop()
-        for next, next_length in net[last]:
-            if next == target_pos:
+        for next_crossing, next_length in net[last]:
+            if next_crossing == target_pos:
                 path_lengths.append(length + next_length)
-            if next not in path:
+            if next_crossing not in path:
                 new_path = path.copy()
-                new_path.append(next)
-                paths.append((next, new_path, length + next_length))
+                new_path.append(next_crossing)
+                paths.append((next_crossing, new_path, length + next_length))
 
-    return max(path_lengths)  # solve(data, True)
+    return max(path_lengths)
 
 
 if __name__ == "__main__":
