@@ -132,6 +132,7 @@ def make_code_template(folder, year, day, author, date):
     
     shutil.copy("./template.py", folder + "solution.py")
     docstring = '""" Advent of code Year ' + str(year) + ' Day ' + str(day)  +' solution\n'
+    docstring += 'Link to task: https://adventofcode.com/' + str(year) + '/day/' + str(day) + '\n'
     docstring += 'Author = ' + author + '\n'
     docstring += 'Date = ' + date + '\n"""\n\n'
     prepend_line(folder + "solution.py",docstring)
