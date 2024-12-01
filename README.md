@@ -21,7 +21,7 @@ Most of it is missing and will be added as I complete them. You can check the co
 
 ![](https://img.shields.io/badge/2024%20total%20stars%20⭐-47-yellow)
 &nbsp;&nbsp;
-![](https://img.shields.io/badge/2024%20days%20completed-0-red)
+![](https://img.shields.io/badge/2024%20days%20completed-22-red)
 
 
 
