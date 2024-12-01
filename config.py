@@ -2,23 +2,6 @@
     Configurations
 '''
 
-## DATE SPECIFIC PARAMETERS
-
-# Date automatically put in the code templates.
-DATE = "December 2024"
-
-# You can go as early as 2015.
-STARTING_ADVENT_OF_CODE_YEAR = 2024
-
-# The setup will download all advent of code data
-# up until that date included
-LAST_ADVENT_OF_CODE_YEAR = 2024
-
-# If the year isn't finished, the setup will download days
-# up until that day included for the last year
-LAST_ADVENT_OF_CODE_DAY = 24
-
-
 #### General Settings
 SESSION_ID_FILE = "UserSessionId.txt"
 
@@ -26,8 +9,6 @@ SESSION_ID_FILE = "UserSessionId.txt"
 # # If you want to make a parent folder, change this to ex "./adventofcode/"
 BASE_FOLDER = "./"
 
-# Set to false to download the whole range of tasks
-ONLY_INIT_ONE_DAY = True
 
 # Set to false to not download statements.
 # Note that only part one is downloaded (since you need to complete it to access part two)
