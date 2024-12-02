@@ -2,8 +2,7 @@ import concurrent.futures
 import os
 import shutil
 import requests
-from dateutil.utils import today
-
+from datetime import datetime
 from config import *
 
 
@@ -137,7 +136,7 @@ def init_day(d, y):
         os.makedirs(day_folder)
 
     if MAKE_CODE_TEMPLATE and not os.path.exists(day_folder + "/solution.py"):
-        make_code_template(day_folder, y, d, AUTHOR, today().strftime("%d/%m/%Y"))
+        make_code_template(day_folder, y, d, AUTHOR, datetime.now().strftime("%d/%m/%Y"))
     if DOWNLOAD_INPUTS and (not os.path.exists(day_folder + "/input.txt") or OVERWRITE) and USER_SESSION_ID != "":
         download_inputs(day_folder, link_to_day)
     if DOWNLOAD_STATEMENTS and (not os.path.exists(day_folder + "/statement.md") or OVERWRITE):
