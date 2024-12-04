@@ -8,10 +8,9 @@ import re
 from utils.templateutils import timeit, read_input_file
 
 
-def process_input():
+def process_input(input_data):
     """parses the input file and returns the result"""
-    file = read_input_file()
-    numbers = re.findall(r"\d+", file)
+    numbers = re.findall(r"\d+", input_data)
     # every second number is in the other list
     leftlist, rightlist = [], []
     for i, number in enumerate(numbers):
@@ -23,9 +22,9 @@ def process_input():
 
 
 @timeit
-def part_one():
+def part_one(input_data):
     """Solution for Part 1"""
-    left, right = process_input()
+    left, right = process_input(input_data)
     left.sort()
     right.sort()
 
@@ -36,9 +35,9 @@ def part_one():
 
 
 @timeit
-def part_two():
+def part_two(input_data):
     """Solution for Part 2"""
-    left, right = process_input()
+    left, right = process_input(input_data)
     occurences_in_right = {}
 
     for n in right:
@@ -53,5 +52,6 @@ def part_two():
 
 
 if __name__ == "__main__":
-    print("Part One : " + str(part_one()) + "\n")
-    print("Part Two : " + str(part_two()))
+    file_content = read_input_file()
+    print("Part One : " + str(part_one(file_content)) + "\n")
+    print("Part Two : " + str(part_two(file_content)))

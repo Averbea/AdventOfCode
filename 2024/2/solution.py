@@ -8,10 +8,9 @@ from sympy import false
 from utils.templateutils import timeit, read_input_file
 
 
-def process_input():
+def process_input(input_data):
     """parses the input file and returns the result"""
-    file = read_input_file(test=False)
-    return  [ [int(a) for a in line.split(" ")] for line in file.splitlines()  ]
+    return  [ [int(a) for a in line.split(" ")] for line in input_data.splitlines()  ]
 
 
 def check_if_safe(row):
@@ -27,9 +26,9 @@ def check_if_safe(row):
             break
     return issafe
 @timeit
-def part_one():
+def part_one(input_data):
     """Solution for Part 1"""
-    rows = process_input()
+    rows = process_input(input_data)
     safe = 0
     for row in rows:
         if check_if_safe(row):
@@ -38,9 +37,9 @@ def part_one():
 
 
 @timeit
-def part_two():
+def part_two(input_data):
     """Solution for Part 2"""
-    rows = process_input()
+    rows = process_input(input_data)
     safe = 0
     for row in rows:
         options = []
@@ -52,5 +51,6 @@ def part_two():
 
 
 if __name__ == "__main__":
-    print("Part One : " + str(part_one()) + "\n")
-    print("Part Two : " + str(part_two()))
+    file_content = read_input_file()
+    print("Part One : " + str(part_one(file_content)) + "\n")
+    print("Part Two : " + str(part_two(file_content)))
