@@ -8,6 +8,8 @@ from config import *
 
 f = open(SESSION_ID_FILE, "r", encoding="UTF-8")
 USER_SESSION_ID = f.read().strip()
+if USER_SESSION_ID == "":
+    raise Exception("No session id found in " + SESSION_ID_FILE + ". Please add your session id to this file.")
 
 
 def create_url(folder: str, link_to_day: str):
