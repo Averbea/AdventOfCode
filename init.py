@@ -17,7 +17,7 @@ def main():
     default_day = today.day
 
 
-    multiple = bool(input("Do you want to initialize all days and years? [y/n] [n]: ").lower() == "y")
+    multiple = bool(input("Do you want to initialize multiple days and years? [y/n] [n]: ").lower() == "y")
     if multiple:
         start_year = int(input(f"Enter start year [2015]: ") or 2015)
         last_year = int(input(f"Enter last year [{default_year}]: ") or default_year)
