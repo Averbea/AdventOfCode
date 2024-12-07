@@ -27,7 +27,6 @@ def concat(a, b):
     return int(str(a) + str(b))
 
 def tryout(data, target_val, operators_to_try):
-    #print("tryout", data, target_val)
     if len(data) == 2:
         if any([op(data[0], data[1]) == target_val for op in operators_to_try]):
             return True
@@ -45,10 +44,8 @@ def tryout(data, target_val, operators_to_try):
 def solve(data, operators_to_try):
     calibration_result = 0
     for line in data:
-        # print("line", line)
         result = line[0]
         numbers = line[1:]
-        # all combinations of add and multiply (len of numbers -1)
         valid = tryout(numbers, result, operators_to_try)
         if valid:
             calibration_result += result
