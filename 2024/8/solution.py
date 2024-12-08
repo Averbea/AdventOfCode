@@ -22,6 +22,14 @@ def process_input(input_data):
     return antennas, max_x, max_y
 
 
+def get_all_pairs(antennas):
+    pairs = []
+    for i, a in enumerate(antennas):
+        for b in antennas[i + 1:]:
+            pairs.append((a, b))
+    return pairs
+
+
 @timeit
 def part_one(input_data):
     """Solution for Part 1"""
@@ -30,12 +38,7 @@ def part_one(input_data):
     antinode_locations = set()
     for frequency in antennas:
         # all combinations of antennas at frequency
-        relevant_antennas = antennas[frequency]
-
-        pairs = []
-        for i, a in enumerate(relevant_antennas):
-            for b in relevant_antennas[i + 1:]:
-                pairs.append((a, b))
+        pairs = get_all_pairs(antennas[frequency])
 
         for a, b in pairs:
             diff = (b[0] - a[0], b[1] - a[1])
@@ -58,24 +61,18 @@ def part_two(input_data):
 
     antinode_locations = set()
     for frequency in antennas:
-        # all combinations of antennas at frequency
-        relevant_antennas = antennas[frequency]
-
-        pairs = []
-        for i, a in enumerate(relevant_antennas):
-            for b in relevant_antennas[i + 1:]:
-                pairs.append((a, b))
+        pairs = get_all_pairs(antennas[frequency])
 
         for a, b in pairs:
             diff = (b[0] - a[0], b[1] - a[1])
             # calc all points that are twice as far from one antenna to the other
-            x, y = b[0], b[1]
+            x, y = b[0], b[1]  # the antenna itself and all nodes in line are antinodes
             while 0 <= x <= max_x and 0 <= y <= max_y:
                 antinode_locations.add((x, y))
                 x += diff[0]
                 y += diff[1]
 
-            x, y = a[0], a[1]
+            x, y = a[0], a[1]  # the antenna itself and all nodes in line are antinodes
             while 0 <= x <= max_x and 0 <= y <= max_y:
                 antinode_locations.add((x, y))
                 x -= diff[0]
