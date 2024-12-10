@@ -22,7 +22,7 @@ def part_two(input_data):
 
 
 if __name__ == "__main__":
-    file_content = read_input_file()
+    file_content = read_input_file(test=False)
     print("Part One : " + str(part_one(file_content)) + "\n")
     print("Part Two : " + str(part_two(file_content)))
 
