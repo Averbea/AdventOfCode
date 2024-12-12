@@ -1,21 +1,21 @@
 from utils.templateutils import timeit, read_input_file
 
 
-def process_input(input_data):
+def process_input(input_data: str):
     """parses the input file and returns the result"""
     # TODO parse input into correct data structure
     return input_data
 
 
 @timeit
-def part_one(input_data):
+def part_one(input_data: str):
     """Solution for Part 1"""
     data = process_input(input_data)
     return 0
 
 
 @timeit
-def part_two(input_data):
+def part_two(input_data: str):
     """Solution for Part 2"""
     data = process_input(input_data)
     return 0
