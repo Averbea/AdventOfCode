@@ -31,8 +31,7 @@ bbrgwb
 <p>In this example, <code><em>6</em></code> of the eight designs are possible with the available towel patterns.</p>
 <p>To get into the onsen as soon as possible, consult your list of towel patterns and desired designs carefully. <em>How many designs are possible?</em></p>
 </article>
-<p>Your puzzle answer was <code>263</code>.</p><p class="day-success">The first half of this puzzle is complete! It provides one gold star: *</p>
-<article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>The staff don't really like some of the towel arrangements you came up with. To avoid an endless cycle of towel rearrangement, maybe you should just give them every possible option.</p>
+<p>Your puzzle answer was <code>263</code>.</p><article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>The staff don't really like some of the towel arrangements you came up with. To avoid an endless cycle of towel rearrangement, maybe you should just give them every possible option.</p>
 <p>Here are all of the different ways the above example's designs can be made:</p>
 <p><code>brwrr</code> can be made in two different ways: <code>b</code>, <code>r</code>, <code>wr</code>, <code>r</code> <em>or</em> <code>br</code>, <code>wr</code>, <code>r</code>.</p>
 <p><code>bggr</code> can only be made with <code>b</code>, <code>g</code>, <code>g</code>, and <code>r</code>.</p>
@@ -58,3 +57,4 @@ bbrgwb
 <p>Adding up all of the ways the towels in this example could be arranged into the desired designs yields <code><em>16</em></code> (<code>2 + 1 + 4 + 6 + 1 + 2</code>).</p>
 <p>They'll let you into the onsen as soon as you have the list. <em>What do you get if you add up the number of different ways you could make each design?</em></p>
 </article>
+<p>Your puzzle answer was <code>723524534506343</code>
