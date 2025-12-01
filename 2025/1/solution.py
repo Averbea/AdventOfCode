@@ -64,8 +64,33 @@ def part_two(input_data: str):
                 count_zeros += 1
     return count_zeros
 
+
+@timeit
+def part_two_faster(input_data: str):
+    """Solution for Part 2"""
+    data = process_input(input_data)
+
+    count_zeros = 0
+
+    current = 50
+    for direction, value in data:
+        count_to_zero = 100 - current if direction == "R" else current
+
+        if count_to_zero == 0:
+            count_to_zero = 100
+        if value >= count_to_zero:
+            count_zeros += 1
+            count_zeros += (value - count_to_zero) // 100
+
+        current = current + value if direction == "R" else current - value
+        current %= 100
+
+    return count_zeros
+
+
 if __name__ == "__main__":
     file_content = read_input_file(test=False)
     print("Part One : " + str(part_one(file_content)) + "\n")
-    print("Part Two : " + str(part_two(file_content)))
+    print("Part Two : " + str(part_two(file_content)) + "\n")
+    print("Part Two Faster : " + str(part_two_faster(file_content)))
 
