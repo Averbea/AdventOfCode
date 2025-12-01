@@ -133,7 +133,8 @@ def init_day(d, y):
     base_link = "https://adventofcode.com/"  # ex use : https://adventofcode.com/2017/day/19/input
 
     link_to_day = base_link + str(y) + "/day/" + str(d)
-    day_folder = BASE_FOLDER + str(y) + "/" + str(d) + "/"
+    # Use zero-padded two-digit day folder names (e.g. '01', '02', ... '10')
+    day_folder = BASE_FOLDER + str(y) + "/" + f"{int(d):02d}" + "/"
     if not os.path.exists(day_folder):
         os.makedirs(day_folder)
 
@@ -157,7 +158,8 @@ def init_multiple(start_year, last_year, start_day, last_day):
         futures = []
         for y in years:
             for d in (d for d in days if (y < last_year or d <= last_day)):
-                print("Initializing day " + str(d) + " of year " + str(y))
+                # show padded day number in status messages
+                print("Initializing day " + f"{d:02d}" + " of year " + str(y))
                 futures.append(executor.submit(init_day, d, y))
 
         concurrent.futures.wait(futures)

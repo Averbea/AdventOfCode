@@ -21,6 +21,10 @@ Most of it is missing and will be added as I complete them.
 &nbsp;&nbsp;
 ![](https://img.shields.io/badge/2024%20days%20completed-20-red)
 
+
+![](https://img.shields.io/badge/2025%20total%20stars%20⭐-1-yellow)
+&nbsp;&nbsp;
+![](https://img.shields.io/badge/2025%20days%20completed-1-red)
 ## Credits
 
 The init.py was originally created by [AlexeSimon](https://github.com/AlexeSimon) and adapted by me
