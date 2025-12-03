@@ -110,7 +110,7 @@ def prepend_line(file_name, line):
     os.rename(dummy_file, file_name)
 
 
-def make_code_template(folder, year, day, author, date):
+def make_code_template(folder, year, day, author, date, filename):
     """creates a coding template from (uses template.py)
 
     Args:
@@ -121,7 +121,7 @@ def make_code_template(folder, year, day, author, date):
         date (): Date description in code template
     """
 
-    shutil.copy("./template.py", folder + "solution.py")
+    shutil.copy("./template.py", folder + filename)
     docstring = '""" Advent of code Year ' + str(year) + ' Day ' + str(day) + ' solution\n'
     docstring += 'Link to task: https://adventofcode.com/' + str(year) + '/day/' + str(day) + '\n'
     docstring += 'Author = ' + author + '\n'
@@ -137,12 +137,14 @@ def init_day(d, y):
     day_folder = BASE_FOLDER + str(y) + "/" + f"{int(d):02d}" + "/"
     if not os.path.exists(day_folder):
         os.makedirs(day_folder)
+    daystr = f"{y}_{d:02d}"
 
-    if MAKE_CODE_TEMPLATE and not os.path.exists(day_folder + "/solution.py"):
-        make_code_template(day_folder, y, d, AUTHOR, datetime.now().strftime("%d/%m/%Y"))
+    filename = daystr + "_solution.py"
+    if MAKE_CODE_TEMPLATE and not os.path.exists(day_folder + "/"+ filename):
+        make_code_template(day_folder, y, d, AUTHOR, datetime.now().strftime("%d/%m/%Y"), filename)
     if DOWNLOAD_INPUTS and (not os.path.exists(day_folder + "/input.txt") or OVERWRITE) and USER_SESSION_ID != "":
         download_inputs(day_folder, link_to_day)
-    if DOWNLOAD_STATEMENTS and (not os.path.exists(day_folder + "/statement.md") or OVERWRITE):
+    if DOWNLOAD_STATEMENTS and (not os.path.exists(day_folder + "/"+ daystr + "_statement.md") or OVERWRITE):
         download_statements(day_folder, link_to_day)
     if MAKE_URL and (not os.path.exists(day_folder + "/link.url") or OVERWRITE):
         create_url(day_folder, link_to_day)
