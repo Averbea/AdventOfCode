@@ -126,7 +126,7 @@ def make_code_template(folder, year, day, author, date, filename):
     docstring += 'Link to task: https://adventofcode.com/' + str(year) + '/day/' + str(day) + '\n'
     docstring += 'Author = ' + author + '\n'
     docstring += 'Date = ' + date + '\n"""\n\n'
-    prepend_line(folder + "solution.py", docstring)
+    prepend_line(folder +                 filename, docstring)
 
 
 def init_day(d, y):
