@@ -22,7 +22,7 @@ Most of it is missing and will be added as I complete them.
 ![](https://img.shields.io/badge/2024%20days%20completed-21-red)
 
 
-![](https://img.shields.io/badge/2025%20total%20stars%20⭐-18-yellow)
+![](https://img.shields.io/badge/2025%20total%20stars%20⭐-19-yellow)
 &nbsp;&nbsp;
 ![](https://img.shields.io/badge/2025%20days%20completed-9-red)
 ## Credits
