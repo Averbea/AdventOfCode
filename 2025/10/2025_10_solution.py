@@ -4,7 +4,7 @@ Author = Averbea
 Date = 10/12/2025
 """
 import re
-import sympy as sp
+import z3
 
 from utils.templateutils import timeit, read_input_file
 from collections import  deque
@@ -98,6 +98,7 @@ def get_min_presses_to_match_counters(desired_counters, wirings):
             if all(new_state[i] <= desired_counters[i] for i in range(len(desired_counters))):
                 to_explore.append((new_state, presses + 1))
 
+import sympy as sp
 
 def get_min_presses_to_match_counters_linalg(joltages, wirings):
     vecs = []
@@ -108,21 +109,33 @@ def get_min_presses_to_match_counters_linalg(joltages, wirings):
         vecs.append(vector)
     result = joltages
 
-    A = sp.Matrix(vecs).T
-    b = sp.Matrix(result)
+    # solve Ax = B
 
-    A = list(zip(*vecs))  # transpose
+    x = [z3.Int(f'B{i}') for i in range(len(wirings))]
+
+    equations = []
+    for i in range(len(joltages)):
+        terms = [x[j] for j in range(len(wirings)) if i in wirings[j]]
+        eq = (sum(terms) == joltages[i])
+        equations.append(eq)
 
 
-    # this is basically solving Ax = b for positive integers x
-    x = sp.symbols(f'x0:{len(wirings)}', integer=True, nonnegative=True)
-    equations = [sum(A[i][j] * x[j] for j in range(len(wirings))) - b[i] for i in range(len(joltages))]
+    optimizer = z3.Optimize()
 
-    # find minimal solution
-    sol = sp.linsolve(equations, x)
-    print(sol)
+    optimizer.minimize(sum(x)) # we are searching for the minimum number of presses
 
-    return 0
+
+    for eq in equations:
+        optimizer.add(eq)
+    # each button press count must be non-negative
+    for button_presses in x:
+        optimizer.add(button_presses >= 0)
+
+    optimizer.check()
+
+    model = optimizer.model()
+    return sum(model[d].as_long() for d in model.decls())
+
 
 @timeit
 def part_two(input_data: str):
@@ -138,7 +151,7 @@ def part_two(input_data: str):
 
 
 if __name__ == "__main__":
-    file_content = read_input_file(test=True)
+    file_content = read_input_file(test=False)
     print("Part One : " + str(part_one(file_content)) + "\n")
     print("Part Two : " + str(part_two(file_content)))
 
