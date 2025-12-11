@@ -98,7 +98,6 @@ def get_min_presses_to_match_counters(desired_counters, wirings):
             if all(new_state[i] <= desired_counters[i] for i in range(len(desired_counters))):
                 to_explore.append((new_state, presses + 1))
 
-import sympy as sp
 
 def get_min_presses_to_match_counters_linalg(joltages, wirings):
     vecs = []
@@ -107,7 +106,6 @@ def get_min_presses_to_match_counters_linalg(joltages, wirings):
         for lamp_index in w:
             vector[lamp_index] += 1
         vecs.append(vector)
-    result = joltages
 
     # solve Ax = B
 
